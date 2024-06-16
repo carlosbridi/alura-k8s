@@ -1,11 +1,10 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: myapp
+  name: goodfood
   labels:
     app: goodfood-postech
 spec:
-  replicas: 1
   selector:
     matchLabels:
       app: goodfood-postech
@@ -19,9 +18,14 @@ spec:
         image: bridicarlos/goodfood:1.9.2
         ports:
         - containerPort: 80
+        resources:
+          requests:
+            cpu: "250m"
+          limits:
+            cpu: "500m" 
         env:
         - name: DATABASE_URL
-          value: jdbc:postgresql://10.102.215.153:5432/food
+          value: jdbc:postgresql://postgresql-db:5432/food
         - name: SERVER_PORT
           value: "8080"
         - name: DATABASE_USERNAME
